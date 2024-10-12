@@ -1,31 +1,38 @@
 name: Python application
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions:
-  contents: read
+  contents: read
 
 jobs:
-  build:
+  build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Run make install
-      run: |
-        make install
-    - name: Run server
-      run: |
-        make run &
-        sleep 5  # Wait for the server to start up
-    - name: Run Flake8
-      run: flake8 . --exclude=venv,.venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --ignore=F821
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    - name: Run make install
+      run: |
+        make install
+
+    - name: Run server
+      run: |
+        make run &
+        sleep 5  # Wait for the server to start up, adjust if necessary
+
+    - name: Run Flake8
+      run: |
+        flake8 . --exclude=venv,.venv \
+        --count --exit-zero --max-complexity=10 \
+        --max-line-length=127 --statistics --ignore=F821
