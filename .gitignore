@@ -1,0 +1,14 @@
+# Ignore Python bytecode
+*.pyc
+__pycache__/
+
+# Ignore environment files
+.env
+venv/
+
+# Ignore macOS files
+.DS_Store
+
+.idea/
+.github/workflows/
+
